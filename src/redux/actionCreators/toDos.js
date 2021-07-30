@@ -1,17 +1,17 @@
 import actions from '../actions/toDos'
 
-export const setToDo = (payload) => ({
-  type: actions.SET_TODO,
+export const addToDo = (payload) => ({
+  type: actions.ADD_TODO,
   payload,
 })
 
-export const setDoneToDo = (payload) => ({
-  type: actions.SET_DONE_TODO,
+export const addDoneToDo = (payload) => ({
+  type: actions.ADD_DONE_TODO,
   payload,
 })
 
-export const removeToDoFromDones = (payload) => ({
-  type: actions.REMOVE_TODO_FROM_DONES,
+export const removeDoneToDo = (payload) => ({
+  type: actions.REMOVE_DONE_TODO,
   payload,
 })
 
@@ -20,8 +20,8 @@ export const deleteToDo = (payload) => ({
   payload,
 })
 
-export const editToDoTitle = ({ id, newTitle }) => ({
-  type: actions.EDIT_TODO_TITLE,
+export const editToDo = ({ id, newTitle }) => ({
+  type: actions.EDIT_TODO,
   payload: {
     id,
     newTitle,

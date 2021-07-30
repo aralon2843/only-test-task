@@ -1,8 +1,8 @@
 import { useDispatch } from 'react-redux'
 import {
+  addDoneToDo,
   deleteToDo,
-  removeToDoFromDones,
-  setDoneToDo,
+  removeDoneToDo,
 } from '../../redux/actionCreators/toDos'
 import Checkbox from './Checkbox/Checkbox'
 import DeleteButton from './DeleteButton/DeleteButton'
@@ -12,7 +12,7 @@ const ToDo = ({ title, id, isDone, editMode, onTitleClickEditMode }) => {
   const dispatch = useDispatch()
   const onToDoClickHandler = (id) => {
     if (!editMode) {
-      isDone ? dispatch(removeToDoFromDones(id)) : dispatch(setDoneToDo(id))
+      isDone ? dispatch(removeDoneToDo(id)) : dispatch(addDoneToDo(id))
     }
   }
 

@@ -26,12 +26,16 @@ const App = () => {
   const [editMode, setEditMode] = useState(false)
   const [editToDo, setEditToDo] = useState({})
 
-  const onCloseClickHandler = () => {
+  const closeNewToDoPopup = () => {
     setNewToDoPopupVisible(false)
   }
 
-  const onAddClickHandler = () => {
-    setNewToDoPopupVisible(false)
+  const closeEditToDoPopup = () => {
+    setEditToDoPopupVisible(false)
+  }
+
+  const onAddButtonClickHandler = () => {
+    setNewToDoPopupVisible(true)
   }
 
   const onButtonClickHandler = () => {
@@ -51,9 +55,11 @@ const App = () => {
       <Content>
         <Header>
           <Title>Сегодня</Title>
-          <Button onClick={onButtonClickHandler}>
-            {editMode ? 'Отменить' : 'Править'}
-          </Button>
+          {(toDos.length > 0 || editMode) && (
+            <Button onClick={onButtonClickHandler}>
+              {editMode ? 'Отменить' : 'Править'}
+            </Button>
+          )}
         </Header>
         {toDos.length > 0 ? (
           <ToDos
@@ -64,31 +70,21 @@ const App = () => {
         ) : (
           <NoToDosTitle>Список задач пуст</NoToDosTitle>
         )}
-        {newToDoPopupVisible ? (
+        {newToDoPopupVisible && (
           <NewToDoPopup
-            onCloseClick={onCloseClickHandler}
-            onAddClick={onAddClickHandler}
+            closePopup={closeNewToDoPopup}
             newToDoId={lastToDoId + 1}
           />
-        ) : (
-          ''
         )}
-        {editToDoPopupVisible ? (
+        {editToDoPopupVisible && (
           <EditToDoPopup
             prevTitle={editToDo.title}
             id={editToDo.id}
-            closePopup={() => setEditToDoPopupVisible(false)}
+            closePopup={closeEditToDoPopup}
           />
-        ) : (
-          ''
         )}
-        {editMode ? (
-          ''
-        ) : (
-          <AddButton
-            background={plus}
-            onClick={() => setNewToDoPopupVisible(true)}
-          />
+        {!editMode && (
+          <AddButton background={plus} onClick={onAddButtonClickHandler} />
         )}
       </Content>
     </Wrapper>

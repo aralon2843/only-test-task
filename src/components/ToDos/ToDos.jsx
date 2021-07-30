@@ -7,14 +7,12 @@ const ToDos = ({ toDos, editMode, onTitleClickEditMode }) => {
 
   return (
     <ToDosList>
-      {toDos.map((toDo) => (
+      {toDos.map(({ title, id }) => (
         <ToDo
-          title={toDo.title}
-          id={toDo.id}
-          key={toDo.id}
-          isDone={
-            doneToDos.find((doneToDo) => doneToDo === toDo.id) === toDo.id
-          }
+          title={title}
+          id={id}
+          key={id}
+          isDone={doneToDos.find((doneToDo) => doneToDo === id) === id}
           editMode={editMode}
           onTitleClickEditMode={onTitleClickEditMode}
         />

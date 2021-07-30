@@ -1,4 +1,3 @@
-import { useRef } from 'react'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import {
@@ -8,9 +7,9 @@ import {
   PopupWrapper,
   TextArea,
 } from '../../common/PopupStyles'
-import { setToDo } from '../../redux/actionCreators/toDos'
+import { addToDo } from '../../redux/actionCreators/toDos'
 
-const NewToDoPopup = ({ onCloseClick, onAddClick, newToDoId }) => {
+const NewToDoPopup = ({ closePopup, newToDoId }) => {
   const [newToDo, setNewToDo] = useState({
     id: 0,
     title: '',
@@ -18,22 +17,20 @@ const NewToDoPopup = ({ onCloseClick, onAddClick, newToDoId }) => {
 
   const [errorMessageVisible, setErrorMessageVisible] = useState(false)
 
-  const textAreaRef = useRef()
-
   const dispatch = useDispatch()
 
-  const onChangeHandler = () => {
+  const onChangeHandler = (title) => {
     setNewToDo({
       id: newToDoId,
-      title: textAreaRef.current.value,
+      title,
     })
     setErrorMessageVisible(false)
   }
 
   const onButtonClickHandler = () => {
-    if (newToDo.title !== '') {
-      onAddClick()
-      dispatch(setToDo(newToDo))
+    if (newToDo.title.trim() !== '') {
+      closePopup()
+      dispatch(addToDo(newToDo))
     } else {
       setErrorMessageVisible(true)
     }
@@ -44,12 +41,12 @@ const NewToDoPopup = ({ onCloseClick, onAddClick, newToDoId }) => {
       <TextArea
         height={160}
         placeholder='Введите текст задачи'
-        onChange={onChangeHandler}
+        onChange={(event) => onChangeHandler(event.target.value)}
         value={newToDo.title}
-        ref={textAreaRef}></TextArea>
-      {errorMessageVisible ? <ErrorMessage>Введите задачу</ErrorMessage> : ''}
+      />
+      {errorMessageVisible && <ErrorMessage>Введите задачу</ErrorMessage>}
       <Buttons>
-        <Button close onClick={onCloseClick}>
+        <Button close onClick={closePopup}>
           Закрыть
         </Button>
         <Button add onClick={onButtonClickHandler}>

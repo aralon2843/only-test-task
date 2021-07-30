@@ -1,4 +1,3 @@
-import { useRef } from 'react'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import {
@@ -8,39 +7,37 @@ import {
   PopupWrapper,
   TextArea,
 } from '../../common/PopupStyles'
-import { editToDoTitle } from '../../redux/actionCreators/toDos'
+import { editToDo } from '../../redux/actionCreators/toDos'
 
 const EditToDoPopup = ({ prevTitle, id, closePopup }) => {
   const [newTitle, setNewTitle] = useState(prevTitle)
 
   const [errorMessageVisible, setErrorMessageVisible] = useState(false)
 
-  const textAreaRef = useRef()
-
   const dispatch = useDispatch()
 
   const onSaveClickHandler = (id, newTitle) => {
-    if (newTitle !== '') {
+    if (newTitle.trim() !== '') {
       closePopup()
-      dispatch(editToDoTitle({ id, newTitle }))
+      dispatch(editToDo({ id, newTitle }))
     } else {
       setErrorMessageVisible(true)
     }
   }
 
+  const onChangeHandler = (newTitle) => {
+    setNewTitle(newTitle)
+  }
+
   return (
     <PopupWrapper>
       <TextArea
+        edit
         height={50}
-        onChange={() => setNewTitle(textAreaRef.current.value)}
+        onChange={(event) => onChangeHandler(event.target.value)}
         defaultValue={prevTitle}
-        ref={textAreaRef}
-        edit></TextArea>
-      {errorMessageVisible ? (
-        <ErrorMessage>Переименуйте задачу</ErrorMessage>
-      ) : (
-        ''
-      )}
+      />
+      {errorMessageVisible && <ErrorMessage>Переименуйте задачу</ErrorMessage>}
       <Buttons>
         <Button close onClick={closePopup}>
           Закрыть

@@ -35,6 +35,7 @@ export const Button = styled.button`
   border-radius: 4px;
   border: none;
   outline: none;
+  cursor: pointer;
 `
 export const AddButton = styled.button`
   position: fixed;

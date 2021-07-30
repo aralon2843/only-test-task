@@ -7,18 +7,18 @@ const initialState = {
 
 const toDos = (state = initialState, { type, payload }) => {
   switch (type) {
-    case actions.SET_TODO:
+    case actions.ADD_TODO:
       return {
         ...state,
         toDos: [...state.toDos, payload],
       }
-    case actions.SET_DONE_TODO:
+    case actions.ADD_DONE_TODO:
       return {
         ...state,
         doneToDos: [...state.doneToDos, payload],
       }
 
-    case actions.REMOVE_TODO_FROM_DONES:
+    case actions.REMOVE_DONE_TODO:
       return {
         ...state,
         doneToDos: state.doneToDos.filter((toDo) => toDo !== payload),
@@ -29,7 +29,7 @@ const toDos = (state = initialState, { type, payload }) => {
         toDos: state.toDos.filter((toDo) => toDo.id !== payload),
         doneToDos: state.doneToDos.filter((toDo) => toDo !== payload),
       }
-    case actions.EDIT_TODO_TITLE:
+    case actions.EDIT_TODO:
       console.log(payload)
       return {
         ...state,
