@@ -5,7 +5,7 @@ export const PopupWrapper = styled.div`
   align-items: center;
   flex-direction: column;
   width: 100%;
-  height: 83vh;
+  height: 78vh;
   padding: 40px;
   position: absolute;
   bottom: 0;
