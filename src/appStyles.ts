@@ -37,7 +37,12 @@ export const Button = styled.button`
   outline: none;
   cursor: pointer;
 `
-export const AddButton = styled.button`
+
+interface IAddButton {
+  background: string
+}
+
+export const AddButton = styled.button<IAddButton>`
   position: fixed;
   bottom: 40px;
   right: 40px;

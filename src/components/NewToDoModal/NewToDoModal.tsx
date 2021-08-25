@@ -1,15 +1,22 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
+
 import {
   Button,
   Buttons,
   ErrorMessage,
-  PopupWrapper,
+  ModalWrapper,
   TextArea,
-} from '../../common/PopupStyles'
+} from '../../common/ModalStyles'
+
 import { addToDo } from '../../redux/actionCreators/toDos'
 
-const NewToDoPopup = ({ closePopup, newToDoId }) => {
+interface INewToDoModal {
+  closeModal: () => void
+  newToDoId: number
+}
+
+const NewToDoModal: React.FC<INewToDoModal> = ({ closeModal, newToDoId }) => {
   const [newToDo, setNewToDo] = useState({
     id: 0,
     title: '',
@@ -20,7 +27,7 @@ const NewToDoPopup = ({ closePopup, newToDoId }) => {
 
   const dispatch = useDispatch()
 
-  const onChangeHandler = (title) => {
+  const onChangeHandler = (title: string) => {
     setNewToDo({
       id: newToDoId,
       title,
@@ -31,7 +38,7 @@ const NewToDoPopup = ({ closePopup, newToDoId }) => {
 
   const onButtonClickHandler = () => {
     if (newToDo.title.trim() !== '') {
-      closePopup()
+      closeModal()
       dispatch(addToDo(newToDo))
     } else {
       setErrorMessageVisible(true)
@@ -39,24 +46,25 @@ const NewToDoPopup = ({ closePopup, newToDoId }) => {
   }
 
   return (
-    <PopupWrapper>
+    <ModalWrapper>
       <TextArea
         height={160}
+        edit={false}
         placeholder='Введите текст задачи'
         onChange={(event) => onChangeHandler(event.target.value)}
         value={newToDo.title}
       />
       {errorMessageVisible && <ErrorMessage>Введите задачу</ErrorMessage>}
       <Buttons>
-        <Button close onClick={closePopup}>
+        <Button close onClick={closeModal}>
           Закрыть
         </Button>
         <Button add onClick={onButtonClickHandler}>
           Добавить
         </Button>
       </Buttons>
-    </PopupWrapper>
+    </ModalWrapper>
   )
 }
 
-export default NewToDoPopup
+export default NewToDoModal

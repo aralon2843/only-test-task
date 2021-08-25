@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const PopupWrapper = styled.div`
+export const ModalWrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -29,7 +29,12 @@ export const Buttons = styled.div`
   display: flex;
 `
 
-export const Button = styled.button`
+interface IButton {
+  add?: boolean
+  close?: boolean
+}
+
+export const Button = styled.button<IButton>`
   width: 137px;
   height: 40px;
   background-color: ${(props) => (props.add ? '#23A3FF' : '#F2F2F2')};
@@ -42,7 +47,12 @@ export const Button = styled.button`
     margin-right: 21px;
   }
 `
-export const TextArea = styled.textarea`
+interface ITextArea {
+  height: number
+  edit: boolean
+}
+
+export const TextArea = styled.textarea<ITextArea>`
   width: 295px;
   height: ${(props) => props.height}px;
   padding: ${(props) => (props.edit ? '12px' : '20px')} 20px;

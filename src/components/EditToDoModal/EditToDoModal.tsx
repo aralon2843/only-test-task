@@ -1,36 +1,48 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
+
 import {
   Button,
   Buttons,
   ErrorMessage,
-  PopupWrapper,
+  ModalWrapper,
   TextArea,
-} from '../../common/PopupStyles'
+} from '../../common/ModalStyles'
+
 import { editToDo } from '../../redux/actionCreators/toDos'
 
-const EditToDoPopup = ({ prevTitle, id, closePopup }) => {
+interface IEditToDoModal {
+  prevTitle: string
+  id: number
+  closeModal: () => void
+}
+
+const EditToDoModal: React.FC<IEditToDoModal> = ({
+  prevTitle,
+  id,
+  closeModal,
+}) => {
   const [newTitle, setNewTitle] = useState(prevTitle)
 
   const [errorMessageVisible, setErrorMessageVisible] = useState(false)
 
   const dispatch = useDispatch()
 
-  const onSaveClickHandler = (id, newTitle) => {
+  const onSaveClickHandler = (id: number, newTitle: string) => {
     if (newTitle.trim() !== '') {
-      closePopup()
+      closeModal()
       dispatch(editToDo({ id, newTitle }))
     } else {
       setErrorMessageVisible(true)
     }
   }
 
-  const onChangeHandler = (newTitle) => {
+  const onChangeHandler = (newTitle: string) => {
     setNewTitle(newTitle)
   }
 
   return (
-    <PopupWrapper>
+    <ModalWrapper>
       <TextArea
         edit
         height={50}
@@ -39,15 +51,15 @@ const EditToDoPopup = ({ prevTitle, id, closePopup }) => {
       />
       {errorMessageVisible && <ErrorMessage>Переименуйте задачу</ErrorMessage>}
       <Buttons>
-        <Button close onClick={closePopup}>
+        <Button close onClick={closeModal}>
           Закрыть
         </Button>
         <Button add onClick={() => onSaveClickHandler(id, newTitle)}>
           Сохранить
         </Button>
       </Buttons>
-    </PopupWrapper>
+    </ModalWrapper>
   )
 }
 
-export default EditToDoPopup
+export default EditToDoModal

@@ -1,17 +1,27 @@
 import ToDo from '../ToDo/ToDo'
 import { ToDosList } from './Styles'
 
-const ToDos = ({ toDos, editMode, onTitleClickEditMode }) => {
+interface IToDo {
+  title: string
+  id: number & string
+  completed: boolean
+}
+
+interface IToDos {
+  toDos: Array<IToDo>
+  editMode: boolean
+}
+
+const ToDos: React.FC<IToDos> = ({ toDos, editMode }) => {
   return (
     <ToDosList>
       {toDos.map(({ title, id, completed }) => (
         <ToDo
           title={title}
           id={id}
-          key={id}
           completed={completed}
           editMode={editMode}
-          onTitleClickEditMode={onTitleClickEditMode}
+          key={id}
         />
       ))}
     </ToDosList>
