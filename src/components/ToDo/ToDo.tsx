@@ -48,6 +48,10 @@ const ToDo: React.FC<IToDo> = ({ title, id, completed, editMode }) => {
     dispatch(deleteToDo(id))
   }
 
+  const onCheckboxChangeHandler = (id: number) => {
+    dispatch(toggleToDo(id))
+  }
+
   return (
     <>
       <ToDoItem>
@@ -63,7 +67,7 @@ const ToDo: React.FC<IToDo> = ({ title, id, completed, editMode }) => {
             disabled={editMode}
             checked={completed}
             icon={completedCheckbox}
-            onChange={() => dispatch(toggleToDo(id))}
+            onChange={() => onCheckboxChangeHandler(id)}
           />
         )}
         <Title

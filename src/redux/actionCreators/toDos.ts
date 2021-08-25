@@ -1,10 +1,12 @@
 import actions from '../actions/toDos'
 
-export const addToDo = (payload: {
+interface IToDo {
   id: number
   title: string
   completed: boolean
-}) => ({
+}
+
+export const addToDo = (payload: IToDo) => ({
   type: actions.ADD_TODO,
   payload,
 })

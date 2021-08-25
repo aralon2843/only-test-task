@@ -14,7 +14,7 @@ import {
 import NewToDoModal from './components/NewToDoModal/NewToDoModal'
 import ToDos from './components/ToDos/ToDos'
 
-import plus from './assets/plus.svg'
+import plusIcon from './assets/plus.svg'
 
 const App = () => {
   const toDos = useSelector((state: RootState) => state.toDos.toDos)
@@ -59,7 +59,7 @@ const App = () => {
           />
         )}
         {!editMode && (
-          <AddButton background={plus} onClick={onAddButtonClickHandler} />
+          <AddButton background={plusIcon} onClick={onAddButtonClickHandler} />
         )}
       </Content>
     </Wrapper>

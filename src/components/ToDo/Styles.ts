@@ -4,7 +4,6 @@ export const ToDoItem = styled.li`
   display: flex;
   align-items: center;
   margin-top: 31px;
-  
 `
 
 interface ITitle {
@@ -14,7 +13,7 @@ interface ITitle {
 export const Title = styled.label<ITitle>`
   font-size: 18px;
   font-weight: 500;
-  color: ${(props) => (props.isDone ? '#666666' : '#000000')};
+  color: ${({ isDone }) => (isDone ? '#666666' : '#000000')};
   transition: 0.3s ease color;
   width: 100%;
   max-width: 768px;
@@ -48,7 +47,7 @@ export const Checkbox = styled.input<ICheckbox>`
   }
 
   &:checked + label::before {
-    background: url(${(props) => props.icon}) center no-repeat;
+    background: url(${({ icon }) => icon}) center no-repeat;
   }
 `
 
@@ -62,5 +61,5 @@ export const DeleteButton = styled.span<IDeleteButton>`
   height: 22px;
   margin-right: 14px;
   cursor: pointer;
-  background: url(${(props) => props.icon}) left no-repeat;
+  background: url(${({ icon }) => icon}) left no-repeat;
 `

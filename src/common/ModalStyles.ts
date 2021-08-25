@@ -37,8 +37,8 @@ interface IButton {
 export const Button = styled.button<IButton>`
   width: 137px;
   height: 40px;
-  background-color: ${(props) => (props.add ? '#23A3FF' : '#F2F2F2')};
-  color: ${(props) => (props.add ? '#ffffff' : '#4D4D4D')};
+  background-color: ${({ add }) => (add ? '#23A3FF' : '#F2F2F2')};
+  color: ${({ add }) => (add ? '#ffffff' : '#4D4D4D')};
   border-radius: 10px;
   font-size: 16px;
   border: none;
@@ -54,8 +54,8 @@ interface ITextArea {
 
 export const TextArea = styled.textarea<ITextArea>`
   width: 295px;
-  height: ${(props) => props.height}px;
-  padding: ${(props) => (props.edit ? '12px' : '20px')} 20px;
+  height: ${({ height }) => height}px;
+  padding: ${({ edit }) => (edit ? '12px' : '20px')} 20px;
   border: 2px solid #e6e6e6;
   border-radius: 10px;
   font-size: 16px;
