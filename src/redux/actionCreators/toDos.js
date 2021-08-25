@@ -5,14 +5,9 @@ export const addToDo = (payload) => ({
   payload,
 })
 
-export const addDoneToDo = (payload) => ({
-  type: actions.ADD_DONE_TODO,
-  payload,
-})
-
-export const removeDoneToDo = (payload) => ({
-  type: actions.REMOVE_DONE_TODO,
-  payload,
+export const toggleToDo = (payload) => ({
+  type: actions.TOGGLE_TODO,
+  payload
 })
 
 export const deleteToDo = (payload) => ({

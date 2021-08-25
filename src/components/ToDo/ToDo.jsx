@@ -1,20 +1,13 @@
 import { useDispatch } from 'react-redux'
-import {
-  addDoneToDo,
-  deleteToDo,
-  removeDoneToDo,
-} from '../../redux/actionCreators/toDos'
-import Checkbox from './Checkbox/Checkbox'
-import DeleteButton from './DeleteButton/DeleteButton'
-import { ToDoItem, Title } from './Styles'
+import { deleteToDo, toggleToDo } from '../../redux/actionCreators/toDos'
 
-const ToDo = ({ title, id, isDone, editMode, onTitleClickEditMode }) => {
+import deleteButton from '../../assets/delete.svg'
+import completedCheckbox from '../../assets/completed.svg'
+
+import { ToDoItem, Title, Checkbox, DeleteButton } from './Styles'
+
+const ToDo = ({ title, id, completed, editMode, onTitleClickEditMode }) => {
   const dispatch = useDispatch()
-  const onToDoClickHandler = (id) => {
-    if (!editMode) {
-      isDone ? dispatch(removeDoneToDo(id)) : dispatch(addDoneToDo(id))
-    }
-  }
 
   const onDeleteClickHandler = (id) => {
     dispatch(deleteToDo(id))
@@ -27,16 +20,28 @@ const ToDo = ({ title, id, isDone, editMode, onTitleClickEditMode }) => {
   }
 
   return (
-    <ToDoItem
-      onClick={() => {
-        onToDoClickHandler(id)
-      }}>
+    <ToDoItem>
       {editMode ? (
-        <DeleteButton onDeleteClick={() => onDeleteClickHandler(id)} />
+        <DeleteButton
+          icon={deleteButton}
+          onClick={() => onDeleteClickHandler(id)}
+        />
       ) : (
-        <Checkbox isDone={isDone} />
+        <Checkbox
+          type='checkbox'
+          id={id}
+          disabled={editMode}
+          checked={completed}
+          icon={completedCheckbox}
+          onChange={() => dispatch(toggleToDo(id))}
+        />
       )}
-      <Title isDone={isDone} onClick={() => onTitleClickHandler(id, title)}>
+      <Title
+        htmlFor={id}
+        isDone={completed}
+        onClick={() => {
+          onTitleClickHandler(id, title)
+        }}>
         {title}
       </Title>
     </ToDoItem>

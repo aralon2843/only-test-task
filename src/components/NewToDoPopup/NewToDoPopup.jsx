@@ -13,6 +13,7 @@ const NewToDoPopup = ({ closePopup, newToDoId }) => {
   const [newToDo, setNewToDo] = useState({
     id: 0,
     title: '',
+    completed: false,
   })
 
   const [errorMessageVisible, setErrorMessageVisible] = useState(false)
@@ -23,6 +24,7 @@ const NewToDoPopup = ({ closePopup, newToDoId }) => {
     setNewToDo({
       id: newToDoId,
       title,
+      completed: false,
     })
     setErrorMessageVisible(false)
   }

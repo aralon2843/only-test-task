@@ -1,18 +1,15 @@
-import { useSelector } from 'react-redux'
 import ToDo from '../ToDo/ToDo'
 import { ToDosList } from './Styles'
 
 const ToDos = ({ toDos, editMode, onTitleClickEditMode }) => {
-  const doneToDos = useSelector((state) => state.toDos.doneToDos)
-
   return (
     <ToDosList>
-      {toDos.map(({ title, id }) => (
+      {toDos.map(({ title, id, completed }) => (
         <ToDo
           title={title}
           id={id}
           key={id}
-          isDone={doneToDos.find((doneToDo) => doneToDo === id) === id}
+          completed={completed}
           editMode={editMode}
           onTitleClickEditMode={onTitleClickEditMode}
         />
